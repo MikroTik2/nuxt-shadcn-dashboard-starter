@@ -9,6 +9,7 @@ import { useRouter } from 'vue-router';
 import * as z from 'zod';
 
 const isLoading = ref<boolean>(false);
+const client = useSupabaseClient();
 
 const { toast } = useToast();
 const router = useRouter();
@@ -38,6 +39,37 @@ const onSubmit = handleSubmit(async (_values) => {
     await new Promise(resolve => setTimeout(resolve, 1000));
     await router.push('/dashboard/overview');
 });
+async function githubSignup() {
+    isLoading.value = true;
+
+    try {
+        const { data } = await client.auth.signInWithOAuth({
+            provider: 'github',
+            options: {
+                redirectTo: `${import.meta.env.SUPABASE_URL}/auth/v1/callback`,
+            },
+        });
+
+        if (data.url) {
+            window.location.href = data.url;
+        }
+
+        navigateTo('/dashboard/overview');
+    }
+    catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Failed to sign up with GitHub';
+
+        toast({
+            title: 'Sign Up Failed',
+            description: errorMessage,
+            variant: 'destructive',
+            duration: 5000,
+        });
+    }
+    finally {
+        isLoading.value = false;
+    }
+}
 </script>
 
 <template>
@@ -78,7 +110,7 @@ const onSubmit = handleSubmit(async (_values) => {
                 </span>
             </div>
         </div>
-        <Button variant="outline" type="button" :disabled="isLoading">
+        <Button variant="outline" type="button" :disabled="isLoading" @click="githubSignup()">
             <IconLoader2 v-if="isLoading" class="h-4 w-4 animate-spin" />
             <GithubLogoIcon v-else class="h-4 w-4" />
             Continue with Github

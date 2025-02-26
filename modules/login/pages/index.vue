@@ -16,6 +16,11 @@ useHead({
         { property: 'og:title', content: 'Authentication | Sign In' },
     ],
 });
+
+definePageMeta({
+    path: '/login',
+    layout: false,
+});
 </script>
 
 <template>

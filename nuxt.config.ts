@@ -9,7 +9,11 @@ export default defineNuxtConfig({
         'shadcn-nuxt',
         '~/modules/login',
         '~/modules/dashboard',
+        '@nuxtjs/supabase',
     ],
+    supabase: {
+        redirect: false,
+    },
     colorMode: {
         preference: 'system',
         storageKey: 'theme',
