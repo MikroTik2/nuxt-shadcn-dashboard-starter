@@ -2,7 +2,7 @@
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '~/components/ui/button';
 import FormLayout from '../../components/form-layout.vue';
-import OrderInfo from '../../components/orders/order-info.vue';
+import OrderDetail from '../../components/orders/order-detail.vue';
 import OrderItems from '../../components/orders/order-items.vue';
 import OrderStepper from '../../components/orders/order-stepper.vue';
 import ScrollContainer from '../../components/scroll-container.vue';
@@ -35,7 +35,7 @@ useHead({
                 </div>
 
                 <div class="flex flex-col lg:grid lg:grid-cols-2 gap-5">
-                    <OrderInfo />
+                    <OrderDetail />
                     <OrderStepper />
                     <OrderItems />
                 </div>
