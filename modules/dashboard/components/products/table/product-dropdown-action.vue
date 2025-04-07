@@ -1,47 +1,29 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
-
-defineProps<{
-    product: {
-        id: string;
-    };
-}>();
-const router = useRouter();
 const open = ref<boolean>(false);
 
 function toggleAlert() {
     open.value = !open.value;
-};
-
-function editPush(id: string) {
-    router.push(`/dashboard/product/${id}`);
 };
 </script>
 
 <template>
     <DropdownMenu>
         <DropdownMenuTrigger as-child>
-            <Button variant="ghost" size="icon">
-                <span class="sr-only">
-                    open menu
-                </span>
-                <IconEllipsis class="w-4 h-4" />
+            <Button variant="ghost" class="w-8 float-end h-8 p-0">
+                <span class="sr-only">Open menu</span>
+                <IconMoreHorizontal class="w-4 h-4" />
             </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem @click="editPush(product.id)">
+            <DropdownMenuItem>
                 <IconEdit />
-                <span>
-                    Edit
-                </span>
+                Edit
             </DropdownMenuItem>
             <DropdownMenuItem @click="toggleAlert()">
                 <IconTrash2 />
-                <span>
-                    Delete
-                </span>
+                Delete
             </DropdownMenuItem>
         </DropdownMenuContent>
     </DropdownMenu>
@@ -49,8 +31,10 @@ function editPush(id: string) {
     <AlertDialog :open="open">
         <AlertDialogContent>
             <AlertDialogHeader>
-                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                <AlertDialogDescription>This action will permanently delete the product</AlertDialogDescription>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                    This action will permanently delete the product.
+                </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
                 <Button variant="outline" @click="toggleAlert()">

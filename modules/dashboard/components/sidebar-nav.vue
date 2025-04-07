@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from '#app';
-import { IconCircuitBoard, IconLayoutDashboard, IconPackageSearch, IconShoppingBag } from '#components';
+import { IconLayoutDashboard, IconPackageSearch, IconShoppingBag } from '#components';
 
 const route = useRoute();
 
@@ -44,15 +44,6 @@ const menuItems = ref<IMenuItems[]>([
         isActive: false,
         value: 'dashboard-orders',
         shortcut: ['o', 'o'],
-        items: [],
-    },
-    {
-        title: 'Kanban',
-        url: '/',
-        icon: IconCircuitBoard,
-        isActive: false,
-        value: 'dashboard-kanban',
-        shortcut: ['k', 'k'],
         items: [],
     },
 ]);

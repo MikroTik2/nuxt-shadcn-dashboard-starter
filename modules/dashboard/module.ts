@@ -16,7 +16,7 @@ export default defineNuxtModule({
             pages.push({
                 name: 'dashboard-products',
                 path: '/dashboard/product',
-                file: resolve(__dirname, 'pages/products/product-listing.vue'),
+                file: resolve(__dirname, 'pages/products/product-list.vue'),
             });
             pages.push({
                 name: 'dashboard-products-new',
@@ -31,7 +31,7 @@ export default defineNuxtModule({
             pages.push({
                 name: 'dashboard-orders',
                 path: '/dashboard/order',
-                file: resolve(__dirname, 'pages/orders/order-listing.vue'),
+                file: resolve(__dirname, 'pages/orders/order-list.vue'),
             });
             pages.push({
                 name: 'dashboard-orders-detail',

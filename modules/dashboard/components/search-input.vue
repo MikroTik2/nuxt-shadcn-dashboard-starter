@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IconCircuitBoard, IconLayoutDashboard, IconPackageSearch, IconShoppingBag } from '#components';
+import { IconLayoutDashboard, IconPackageSearch, IconShoppingBag } from '#components';
 import { useMagicKeys } from '@vueuse/core';
 
 export interface ISearchItems {
@@ -34,12 +34,6 @@ const searchItems = ref<ISearchItems[]>([
         url: '/dashboard/overview/orders',
         icon: IconPackageSearch,
         value: 'dashboard-orders',
-    },
-    {
-        title: 'Kanban',
-        url: '/',
-        icon: IconCircuitBoard,
-        value: 'dashboard-kanban',
     },
 ]);
 

@@ -40,4 +40,7 @@ export default defineNuxtConfig({
             stylistic: true,
         },
     },
+    tailwindcss: {
+        viewer: false,
+    },
 });

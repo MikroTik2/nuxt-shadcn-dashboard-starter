@@ -23,14 +23,11 @@ const productCreateFormSchema = toTypedSchema(z.object({
     stock: z.number().int().min(0, { message: 'Stock cannot be negative' }),
     description: z.string().min(10, { message: 'Description must be at least 10 characters' }),
     images: z
-        .array(z.instanceof(File))
-        .refine(files => files.length > 0, { message: 'Please upload at least one image' })
-        .refine(files => files.every((file: File) => file.size <= MAX_FILE_SIZE), {
-            message: `Each file must be less than ${MAX_FILE_SIZE / 1024 / 1024} MB`,
-        })
-        .refine(files => files.every((file: File) => ACCEPTED_IMAGE_TYPES.includes(file.type)), {
-            message: 'Only JPEG, JPG, PNG, and WebP image formats are allowed',
-        }),
+        .any()
+        .refine((files: File[]) => files?.length > 0, 'Required')
+        .refine((files: File[]) => files?.reduce((total, file) => total + file.size, 0) <= MAX_FILE_SIZE, `Maximum file size is ${filterBytes(MAX_FILE_SIZE)}.`)
+        .refine((files: File[]) => files?.length <= 3, 'Maximum number of images is 3.')
+        .refine((files: File[]) => files?.every(file => ACCEPTED_IMAGE_TYPES.includes(file.type)), 'Images must be in .jpg, .jpeg, .png, and .webp format.'),
 }));
 
 const { handleSubmit, resetForm } = useForm({
@@ -72,7 +69,7 @@ const onSubmit = handleSubmit((values) => {
                                 v-model:value="files"
                                 accept="image/jpeg, image/png, image/webp"
                                 :max-size="MAX_FILE_SIZE"
-                                :max-files="5"
+                                :max-files="3"
                                 :multiple="true"
                                 v-bind="componentField"
                                 :disabled="isLoading"
