@@ -60,7 +60,7 @@ function handleOpenChange() {
 <template>
     <div>
         <Button
-            class="relative h-9 w-full justify-start rounded-[0.5rem] dark:hover:bg-zinc-900 dark:hover:border-zinc-800 text-sm font-normal text-muted-foreground shadow-none sm:pr-12 md:w-40 lg:w-64"
+            class="relative h-9 w-full justify-start rounded-[0.5rem] dark:bg-zinc-900 bg-white text-sm font-normal text-muted-foreground shadow-none sm:pr-12 md:w-40 lg:w-64"
             variant="outline"
             @click="open = true"
         >
@@ -69,7 +69,7 @@ function handleOpenChange() {
             Search...
 
             <kbd
-                class="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-6 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex"
+                class="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-6 select-none items-center gap-1 rounded bg-zinc-50 dark:bg-zinc-900 border px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex"
             >
                 <span class="text-xs">⌘</span>J
             </kbd>

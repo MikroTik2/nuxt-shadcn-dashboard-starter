@@ -9,7 +9,7 @@ import UserNav from './user-nav.vue';
     >
         <div class="flex items-center gap-2 px-4">
             <SidebarTrigger
-                class="-ml-1 [&_svg]:size-[none] [&_svg]:shrink-[none] border-none"
+                class="-ml-1 border-none"
             />
 
             <Separator orientation="vertical" class="shrink-0 bg-border w-[1px] mr-2 h-4" />

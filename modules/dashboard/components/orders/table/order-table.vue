@@ -87,7 +87,7 @@ const table = useVueTable({
                         <TableRow
                             v-for="row in table.getRowModel().rows"
                             :key="row.id"
-                            class="h-16"
+                            class="h-20"
                             :data-state="row.getIsSelected() && 'selected'"
                         >
                             <TableCell v-for="cell in row.getVisibleCells()" :key="cell.id">

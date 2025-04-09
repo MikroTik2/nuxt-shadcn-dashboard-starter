@@ -152,7 +152,7 @@ const data: Product[] = [
                 <Heading
                     title="Products"
                     description="Manage your products (server table features)."
-                    label="Add"
+                    label="Add New"
                     href="/dashboard/product/new"
                 />
 

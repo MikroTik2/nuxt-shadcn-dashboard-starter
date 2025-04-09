@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { cn } from '@/lib/utils';
+import { GithubIcon } from 'lucide-vue-next';
+import { buttonVariants } from '~/components/ui/button';
 import SearchInput from './search-input.vue';
 import SwitchTheme from './switch-theme.vue';
 </script>
@@ -17,14 +20,9 @@ import SwitchTheme from './switch-theme.vue';
             <DropdownMenuContent class="min-w-60" align="end">
                 <DropdownMenuLabel>
                     <div class="flex gap-2">
-                        <Avatar class="h-8 dark:bg-[#222222] w-8 rounded-lg">
-                            <AvatarFallback>
-                                MA
-                            </AvatarFallback>
-                        </Avatar>
                         <div class="grid flex-1 text-left text-sm leading-tight">
                             <span class="truncate font-semibold"> Mark </span>
-                            <span class="truncate font-normal text-xs"> demo@gmail.com </span>
+                            <span class="truncate font-normal text-xs text-muted-foreground"> demo@gmail.com </span>
                         </div>
                     </div>
                 </DropdownMenuLabel>
@@ -50,5 +48,8 @@ import SwitchTheme from './switch-theme.vue';
             </DropdownMenuContent>
         </DropdownMenu>
         <SwitchTheme />
+        <a href="https://github.com/MikroTik2/nuxt-shadcn-dashboard-starter" target="_blank" rel="noopener noreferrer" :class="cn(buttonVariants({ variant: 'secondary', size: 'icon' }))" class="!w-8 !h-8">
+            <GithubIcon />
+        </a>
     </div>
 </template>
