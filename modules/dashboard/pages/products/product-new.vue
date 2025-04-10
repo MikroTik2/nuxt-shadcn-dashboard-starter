@@ -4,7 +4,7 @@ import ProductForm from '../../components/products/product-new-form.vue';
 import ScrollContainer from '../../components/scroll-container.vue';
 
 useHead({
-    title: 'Dashboard: New Product',
+    title: 'New Product',
 });
 </script>
 

@@ -4,7 +4,7 @@ import ProductForm from '../../components/products/product-edit-form.vue';
 import ScrollContainer from '../../components/scroll-container.vue';
 
 useHead({
-    title: 'Dashboard: Edit Product',
+    title: 'Edit Product',
 });
 </script>
 

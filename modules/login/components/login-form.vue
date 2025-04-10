@@ -4,12 +4,15 @@ import { useToast } from '@/components/ui/toast/use-toast';
 import { cn } from '@/lib/utils';
 import { GithubLogoIcon } from '@radix-icons/vue';
 import { toTypedSchema } from '@vee-validate/zod';
+import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useForm } from 'vee-validate';
 import { useRouter } from 'vue-router';
+import { useFirebaseAuth } from 'vuefire';
 import * as z from 'zod';
 
 const isLoading = ref<boolean>(false);
 
+const auth = useFirebaseAuth();
 const { toast } = useToast();
 const router = useRouter();
 
@@ -24,6 +27,43 @@ const { handleSubmit, resetForm } = useForm({
     },
 });
 
+async function signInWithSocial(type: 'google' | 'github') {
+    if (auth) {
+        let provider;
+
+        switch (type) {
+            case 'google':
+                provider = new GoogleAuthProvider();
+                break;
+            case 'github':
+                provider = new GithubAuthProvider();
+                provider.addScope('user:email');
+                break;
+        };
+
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+
+        localStorage.setItem('name', user.displayName || '');
+        localStorage.setItem('photo_url', user.photoURL || '');
+        localStorage.setItem('email', user.email || '');
+
+        toast({
+            title: 'Success',
+            description: 'You have successfully logged in!',
+        });
+
+        router.push('/dashboard/overview');
+    }
+    else {
+        toast({
+            title: 'Error',
+            description: 'Authentication service is not available.',
+            variant: 'destructive',
+        });
+    }
+};
+
 const onSubmit = handleSubmit(async (_values) => {
     isLoading.value = true;
 
@@ -31,7 +71,8 @@ const onSubmit = handleSubmit(async (_values) => {
 
     resetForm();
     toast({
-        title: '🎉 Signed In Successfully!',
+        title: 'Success',
+        description: 'You have successfully logged in!',
         duration: 5000,
     });
 
@@ -65,7 +106,7 @@ const onSubmit = handleSubmit(async (_values) => {
 
             <Button :disabled="isLoading" class="w-full" type="submit">
                 <IconLoader2 v-if="isLoading" class="h-4 w-4 animate-spin" />
-                Continue with Email
+                Continue
             </Button>
         </form>
         <div class="relative">
@@ -78,11 +119,18 @@ const onSubmit = handleSubmit(async (_values) => {
                 </span>
             </div>
         </div>
-        <Button variant="outline" type="button" :disabled="isLoading">
-            <IconLoader2 v-if="isLoading" class="h-4 w-4 animate-spin" />
-            <GithubLogoIcon v-else class="h-4 w-4" />
-            Continue with Github
-        </Button>
+        <div class="grid gap-2">
+            <Button variant="outline" type="button" :disabled="isLoading" @click="signInWithSocial('google')">
+                <IconLoader2 v-if="isLoading" class="h-4 w-4 animate-spin" />
+                <img v-else src="/assets/icons/google.svg" alt="google" class="h-4 w-4">
+                Google
+            </Button>
+            <Button variant="outline" type="button" :disabled="isLoading" @click="signInWithSocial('github')">
+                <IconLoader2 v-if="isLoading" class="h-4 w-4 animate-spin" />
+                <GithubLogoIcon v-else class="h-4 w-4" />
+                GitHub
+            </Button>
+        </div>
     </div>
 
     <Toaster />

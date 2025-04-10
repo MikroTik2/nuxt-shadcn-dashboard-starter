@@ -8,7 +8,7 @@ import OrderStepper from '../../components/orders/order-stepper.vue';
 import ScrollContainer from '../../components/scroll-container.vue';
 
 useHead({
-    title: 'Dashboard: Order Detail',
+    title: 'Order Detail',
 });
 </script>
 

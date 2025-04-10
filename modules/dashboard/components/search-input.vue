@@ -77,6 +77,7 @@ function handleOpenChange() {
 
         <CommandDialog v-model:open="open">
             <CommandInput placeholder="Enter a command or search..." />
+            <CommandSeparator />
             <CommandList>
                 <CommandEmpty>No results found.</CommandEmpty>
                 <CommandGroup heading="Navigation">
@@ -89,7 +90,6 @@ function handleOpenChange() {
                         {{ element.title }}
                     </CommandItem>
                 </CommandGroup>
-                <CommandSeparator />
             </CommandList>
         </CommandDialog>
     </div>

@@ -4,6 +4,23 @@ import { GithubIcon } from 'lucide-vue-next';
 import { buttonVariants } from '~/components/ui/button';
 import SearchInput from './search-input.vue';
 import SwitchTheme from './switch-theme.vue';
+
+const router = useRouter();
+
+const email = ref('');
+const name = ref('');
+const picture = ref('');
+
+function signOut() {
+    localStorage.clear();
+    router.push('/');
+};
+
+onMounted(() => {
+    email.value = localStorage.getItem('email') || '';
+    name.value = localStorage.getItem('name') || '';
+    picture.value = localStorage.getItem('photo_url') || '';
+});
 </script>
 
 <template>
@@ -12,7 +29,8 @@ import SwitchTheme from './switch-theme.vue';
         <DropdownMenu>
             <DropdownMenuTrigger>
                 <Avatar class="h-8 flex items-center justify-center w-8">
-                    <AvatarFallback class="text-sm">
+                    <AvatarImage v-if="picture" :src="picture" alt="picture_image" />
+                    <AvatarFallback v-else class="text-sm">
                         M
                     </AvatarFallback>
                 </Avatar>
@@ -21,8 +39,8 @@ import SwitchTheme from './switch-theme.vue';
                 <DropdownMenuLabel>
                     <div class="flex gap-2">
                         <div class="grid flex-1 text-left text-sm leading-tight">
-                            <span class="truncate font-semibold"> Mark </span>
-                            <span class="truncate font-normal text-xs text-muted-foreground"> demo@gmail.com </span>
+                            <span class="truncate font-semibold"> {{ name ? name : 'Mark' }} </span>
+                            <span class="truncate font-normal text-xs text-muted-foreground"> {{ email ? email : 'demo@gmail.com' }} </span>
                         </div>
                     </div>
                 </DropdownMenuLabel>
@@ -41,7 +59,7 @@ import SwitchTheme from './switch-theme.vue';
                 </DropdownMenuItem>
                 <DropdownMenuItem>New Team</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem @click="signOut()">
                     Log out
                     <span class="ml-auto text-xs tracking-widest opacity-60">⇧⌘Q</span>
                 </DropdownMenuItem>

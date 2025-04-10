@@ -24,9 +24,11 @@
         "@vueuse/core": "^12.7.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
+        "firebase": "^11.6.0",
         "lucide-vue-next": "^0.475.0",
         "nuxt": "^3.15.4",
         "nuxt-lucide-icons": "^1.0.5",
+        "nuxt-vuefire": "^1.0.5",
         "radix-vue": "^1.9.16",
         "reka-ui": "^2.0.0",
         "shadcn-nuxt": "^0.11.3",
@@ -35,6 +37,7 @@
         "vee-validate": "^4.15.0",
         "vue": "latest",
         "vue-router": "latest",
+        "vuefire": "^3.2.1",
         "zod": "^3.24.2"
     },
     "devDependencies": {

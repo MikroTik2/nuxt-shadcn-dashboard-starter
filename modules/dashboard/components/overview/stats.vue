@@ -40,7 +40,7 @@ const cards = ref<ICard[]>([
 </script>
 
 <template>
-    <Card v-for="item in cards" :key="item.title" class="bg-white dark:bg-zinc-900 shadow-xs from-primary/5 to-card bg-gradient-to-t">
+    <Card v-for="item in cards" :key="item.title">
         <CardHeader
             class="flex flex-row items-center justify-between space-y-0 pb-2"
         >

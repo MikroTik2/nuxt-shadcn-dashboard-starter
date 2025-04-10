@@ -5,7 +5,7 @@ import { columns } from '../../components/products/table/columns';
 import ProductTable from '../../components/products/table/product-table.vue';
 
 useHead({
-    title: 'Product',
+    title: 'Products',
 });
 
 definePageMeta({

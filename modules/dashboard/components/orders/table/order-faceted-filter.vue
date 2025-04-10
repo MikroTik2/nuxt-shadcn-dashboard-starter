@@ -68,11 +68,12 @@ const selectedValues = computed(() => new Set(props.column?.getFilterValue() as 
                 </template>
             </Button>
         </PopoverTrigger>
-        <PopoverContent class="w-[200px] p-0" align="start">
+        <PopoverContent class="w-[200px] border-none p-0" align="start">
             <Command
                 :filter-function="(list: DataTableFacetedFilter['options'], term: any) => list.filter(i => i.label.toLowerCase()?.includes(term))"
             >
                 <CommandInput :placeholder="title" />
+                <CommandSeparator />
                 <CommandList>
                     <CommandEmpty>Nothing found.</CommandEmpty>
                     <CommandGroup>

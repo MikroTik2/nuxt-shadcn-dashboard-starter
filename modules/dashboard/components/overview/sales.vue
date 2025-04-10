@@ -21,7 +21,7 @@ const sales = [
         <Separator orientation="horizontal" />
 
         <CardContent>
-            <ScrollArea class="space-y-8 max-h-[328px]">
+            <ScrollArea class="space-y-8 max-h-[335px]">
                 <div v-for="(sale, i) in sales" :key="i" class="flex py-4 items-center">
                     <div class="space-y-1">
                         <p class="text-sm font-medium leading-none">

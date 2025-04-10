@@ -34,8 +34,8 @@ const isFiltered = computed(() => props.table.getState().columnFilters.length > 
         <div class="flex flex-1 items-center space-x-2">
             <Input
                 placeholder="Search email..."
+                class="max-w-[384px] !border-accent dark:bg-zinc-900"
                 :model-value="(table.getColumn('email')?.getFilterValue() as string) ?? ''"
-                class="max-w-[384px]"
                 @input="table.getColumn('email')?.setFilterValue($event.target.value)"
             />
             <DataTableFacetedFilter
@@ -48,6 +48,7 @@ const isFiltered = computed(() => props.table.getState().columnFilters.length > 
             <Button
                 v-if="isFiltered"
                 variant="outline"
+                class="!bg-zinc-900 border-dashed hover:opacity-80"
                 @click="table.resetColumnFilters()"
             >
                 Reset

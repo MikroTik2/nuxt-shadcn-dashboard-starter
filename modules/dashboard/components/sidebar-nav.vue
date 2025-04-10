@@ -18,6 +18,10 @@ interface IMenuItems {
     items?: IMenuItems[];
 }
 
+const email = ref('');
+const name = ref('');
+const picture = ref('');
+
 const menuItems = ref<IMenuItems[]>([
     {
         title: 'Dashboard',
@@ -47,6 +51,12 @@ const menuItems = ref<IMenuItems[]>([
         items: [],
     },
 ]);
+
+onMounted(() => {
+    email.value = localStorage.getItem('email') || '';
+    name.value = localStorage.getItem('name') || '';
+    picture.value = localStorage.getItem('photo_url') || '';
+});
 </script>
 
 <template>
@@ -103,19 +113,31 @@ const menuItems = ref<IMenuItems[]>([
                                 class="hover:bg-muted hover:text-accent-foreground"
                             >
                                 <Avatar class="h-8 dark:border-zinc-800 border dark:bg-zinc-900 w-8 rounded-lg">
-                                    <AvatarFallback>
-                                        MA
+                                    <AvatarImage v-if="picture" :src="picture" alt="picture_image" />
+                                    <AvatarFallback v-else class="text-sm">
+                                        M
                                     </AvatarFallback>
                                 </Avatar>
                                 <div class="grid flex-1 text-left text-sm leading-tight">
-                                    <span class="truncate font-semibold"> Mark </span>
-                                    <span class="truncate text-xs"> demo@gmail.com </span>
+                                    <span class="truncate font-semibold"> {{ name ? name : 'Mark' }} </span>
+                                    <span class="truncate text-xs"> {{ email ? email : 'demo@gmail.com' }} </span>
                                 </div>
                                 <IconChevronsUpDown class="ml-auto size-4" />
                             </SidebarMenuButton>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent class="min-w-60" align="end">
-                            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                            <DropdownMenuLabel class="flex items-center gap-2">
+                                <Avatar class="h-8 dark:border-zinc-800 border dark:bg-zinc-900 w-8 rounded-lg">
+                                    <AvatarImage v-if="picture" :src="picture" alt="picture_image" />
+                                    <AvatarFallback v-else class="text-sm">
+                                        M
+                                    </AvatarFallback>
+                                </Avatar>
+                                <div class="grid flex-1 text-left text-sm leading-tight">
+                                    <span class="truncate font-semibold"> {{ name ? name : 'Mark' }} </span>
+                                    <span class="truncate font-normal text-xs"> {{ email ? email : 'demo@gmail.com' }} </span>
+                                </div>
+                            </DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>
                                 Profile
