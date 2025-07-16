@@ -28,7 +28,7 @@ const task = computed(() => taskSchema.parse(props.row.original));
                             <LucideEdit2 />
                             Edit
                      </DropdownMenuItem>
-                     <DropdownMenuItem> 
+                     <DropdownMenuItem>
                             <LucideCopy />
                             Make a copy
                      </DropdownMenuItem>

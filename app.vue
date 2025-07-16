@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { Toaster } from './components/ui/sonner';
+import 'vue-sonner/style.css';
+
 const colorMode = useColorMode();
 
 const color = computed(() => (colorMode.value === 'dark' ? '#09090b' : '#ffffff'));
@@ -41,5 +44,4 @@ useSeoMeta({
        </div>
 
        <Toaster />
-       <Sonner class="pointer-events-auto" />
 </template>

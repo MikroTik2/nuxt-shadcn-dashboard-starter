@@ -9,6 +9,6 @@ definePageMeta({
 
 <template>
        <FormLayout>
-              <Coming title="Overview" subtitle="Overview dashboard template coming soon."  />
+              <Coming title="Overview" subtitle="Overview dashboard template coming soon." />
        </FormLayout>
 </template>

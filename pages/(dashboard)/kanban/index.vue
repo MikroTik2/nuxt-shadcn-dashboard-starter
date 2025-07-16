@@ -9,8 +9,9 @@ definePageMeta({
 
 <template>
        <FormLayout>
-              <Coming 
-                     title="Kanban"  
-                     subtitle="Easily manage your projects and tasks with Kanban board. Organize your workflow and increase team productivity with drag-and-drop."/>
+              <Coming
+                     title="Kanban"
+                     subtitle="Easily manage your projects and tasks with Kanban board. Organize your workflow and increase team productivity with drag-and-drop."
+              />
        </FormLayout>
 </template>

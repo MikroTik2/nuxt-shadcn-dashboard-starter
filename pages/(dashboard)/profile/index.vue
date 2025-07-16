@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import FormLayout from '@/components/layout/form-layout.vue';
-import Coming from '~/components/coming.vue';
+import ProfileForm from './components/profile-form.vue';
 
 definePageMeta({
-       path: '/dashboard/orders',
+       path: '/dashboard/profile',
 });
 </script>
 
 <template>
        <FormLayout>
-              <Coming title="Orders" subtitle="Orders dashboard template coming soon." />
+              <ProfileForm />
        </FormLayout>
 </template>

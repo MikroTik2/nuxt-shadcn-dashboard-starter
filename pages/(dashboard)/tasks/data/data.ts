@@ -1,5 +1,13 @@
-import { NuxtIcon } from '#components';
-import { h } from 'vue';
+import {
+       ArrowDownIcon,
+       ArrowRightIcon,
+       ArrowUpIcon,
+       CheckCircledIcon,
+       CircleIcon,
+       CrossCircledIcon,
+       QuestionMarkCircledIcon,
+       StopwatchIcon,
+} from '@radix-icons/vue';
 
 export const labels = [
        {
@@ -20,27 +28,27 @@ export const statuses = [
        {
               value: 'backlog',
               label: 'Backlog',
-              icon: h(NuxtIcon, { name: 'i-radix-icons-question-mark-circled' }),
+              icon: QuestionMarkCircledIcon,
        },
        {
               value: 'todo',
               label: 'Todo',
-              icon: h(NuxtIcon, { name: 'i-radix-icons-circle' }),
+              icon: CircleIcon,
        },
        {
               value: 'in progress',
               label: 'In Progress',
-              icon: h(NuxtIcon, { name: 'i-radix-icons-stopwatch' }),
+              icon: StopwatchIcon,
        },
        {
               value: 'done',
               label: 'Done',
-              icon: h(NuxtIcon, { name: 'i-radix-icons-check-circled' }),
+              icon: CheckCircledIcon,
        },
        {
               value: 'canceled',
               label: 'Canceled',
-              icon: h(NuxtIcon, { name: 'i-radix-icons-cross-circled' }),
+              icon: CrossCircledIcon,
        },
 ];
 
@@ -48,16 +56,16 @@ export const priorities = [
        {
               value: 'low',
               label: 'Low',
-              icon: h(NuxtIcon, { name: 'i-radix-icons-arrow-down' }),
+              icon: ArrowDownIcon,
        },
        {
               value: 'medium',
               label: 'Medium',
-              icon: h(NuxtIcon, { name: 'i-radix-icons-arrow-right' }),
+              icon: ArrowRightIcon,
        },
        {
               value: 'high',
               label: 'High',
-              icon: h(NuxtIcon, { name: 'i-radix-icons-arrow-up' }),
+              icon: ArrowUpIcon,
        },
 ];

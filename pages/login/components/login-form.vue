@@ -36,11 +36,6 @@ const onSubmit = handleSubmit(async (_values) => {
        await new Promise((resolve) => setTimeout(resolve, 2000));
 
        resetForm();
-       toast({
-              title: 'Success',
-              description: 'You have successfully logged in!',
-              duration: 5000,
-       });
 
        await new Promise((resolve) => setTimeout(resolve, 1000));
        await router.push('/dashboard/tasks');

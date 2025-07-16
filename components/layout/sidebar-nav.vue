@@ -1,200 +1,107 @@
 <script setup lang="ts">
-import { useRoute } from '#app';
-import { LucideLayoutDashboard, LucidePackageSearch, LucideShoppingBag } from '#components';
+import type { NavGroup, NavLink, NavSectionTitle, NavMenu  } from '~/types/nav';
+import { LucideGalleryVerticalEnd, LucideAudioWaveform, LucideCommand,
+       LucideCheckSquare2,
+       LucideLayoutGrid,
+       LucideLayoutDashboard,
+       LucideUser2 } from '#components';
 
-const route = useRoute();
+const navMenu: NavMenu[] = [
+       {
+              heading: 'General',
+              items: [
+                     {
+                            title: 'Overview',
+                            icon: LucideLayoutDashboard,
+                            link: '/dashboard/overview',
+                            disabled: true,
+                            new: false,
+                     },
+                     {
+                            title: 'Account',
+                            icon: LucideUser2,
+                            new: true,
+                            isActive: true,
+                            children: [
+                                   {
+                                          title: 'Profile',
+                                          link: '/dashboard/profile',
+                                   },
+                                   {
+                                          title: 'Login',
+                                          link: '/',
+                                   },
+                            ],
+                     },
+                     {
+                            title: 'Tasks',
+                            icon: LucideCheckSquare2,
+                            link: '/dashboard/tasks',
+                            new: true,
+                     },
+                     {
+                            title: 'Kanban',
+                            icon: LucideLayoutGrid,
+                            disabled: true,
+                            link: '/dashboard/kanban',
+                            new: false,
+                     },
+              ],
+       },
+];
 
-const navItems = ref<NavItems[]>([
+const teams: { name: string; logo: Component; plan: string }[] = [
        {
-              title: 'Dashboard',
-              url: '/dashboard/overview',
-              icon: LucideLayoutDashboard,
-              isActive: false,
-              disabled: true,
-              value: 'dashboard-overview',
-              shortcut: ['o', 'o'],
-              items: [],
+              name: 'Acme Inc',
+              logo: LucideGalleryVerticalEnd,
+              plan: 'Enterprise',
        },
        {
-              title: 'Tasks',
-              url: '/dashboard/tasks',
-              icon: LucidePackageSearch,
-              isActive: false,
-              value: 'dashboard-tasks',
-              shortcut: ['p', 'p'],
-              items: [],
+              name: 'Acme Corp.',
+              logo: LucideAudioWaveform,
+              plan: 'Startup',
        },
        {
-              title: 'Orders',
-              url: '/dashboard/orders',
-              icon: LucideShoppingBag,
-              isActive: false,
-              disabled: true,
-              value: 'dashboard-orders',
-              shortcut: ['o', 'o'],
-              items: [],
+              name: 'Evil Corp.',
+              logo: LucideCommand,
+              plan: 'Free',
        },
-       {
-              title: 'Kanban',
-              url: '/dashboard/kanban',
-              icon: LucideShoppingBag,
-              isActive: false,
-              disabled: true,
-              value: 'dashboard-kanban',
-              shortcut: ['o', 'o'],
-              items: [],
-       },
-]);
+];
+
+const user: { name: string; email: string } = {
+       name: 'Mark',
+       email: 'demo@gmail.com',
+};
+
+function resolveNavItemComponent(item: NavLink | NavGroup | NavSectionTitle): any {
+       if ('children' in item) return resolveComponent('LayoutSidebarNavGroup');
+
+       return resolveComponent('LayoutSidebarNavLink');
+}
+
+const { sidebar } = useAppSettings();
 </script>
 
 <template>
-       <Sidebar collapsible="icon">
+       <Sidebar :collapsible="sidebar.collapsible" :side="sidebar.side" :variant="sidebar.variant">
               <SidebarHeader>
-                     <div class="flex gap-2 py-2 text-sidebar-accent-foreground">
-                            <div
-                                   class="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground"
-                            >
-                                   <svg
-                                          class="dark:fill-white"
-                                          width="800px"
-                                          height="800px"
-                                          viewBox="0 0 512 512"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                   >
-                                          <path fill-rule="evenodd" d="M256,48,496,464H16Z" />
-                                   </svg>
-                            </div>
-                            <div class="grid flex-1 text-left text-sm leading-tight">
-                                   <span class="truncate font-semibold">Shadcn Dashboard</span>
-                                   <span class="truncate text-xs">template</span>
-                            </div>
-                     </div>
+                     <LayoutSidebarNavHeader :teams="teams" />
               </SidebarHeader>
-              <SidebarContent class="overflow-x-hidden">
-                     <SidebarGroup>
-                            <SidebarGroupLabel>Overview</SidebarGroupLabel>
-                            <SidebarMenu tag="div">
-                                   <Collapsible
-                                          v-for="(element, i) in navItems"
-                                          :key="i"
-                                          :default-open="element.isActive"
-                                   >
-                                          <NuxtLink :to="element.url">
-                                                 <SidebarMenuButton
-                                                        class="hover:bg-accent"
-                                                        :tooltip="element.title"
-                                                        :class="
-                                                               route.fullPath === `${element.url}`
-                                                                      ? 'bg-accent'
-                                                                      : ''
-                                                        "
-                                                 >
-                                                        <component :is="element.icon" />
-                                                        <span>{{ element.title }}</span>
-                                                        <span
-                                                               v-if="element.disabled"
-                                                               class="text-sidebar-foreground pointer-events-none absolute right-3 flex h-5 min-w-5 items-center justify-center rounded-md px-1 text-xs font-medium tabular-nums select-none peer-data-[active=true]/menu-button:text-sidebar-accent-foreground peer-data-[size=sm]/menu-button:top-1 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 group-data-[collapsible=icon]:hidden peer-hover/menu-button:text-foreground opacity-50"
-                                                               >Coming</span
-                                                        >
-                                                        <IconChevronRight
-                                                               v-if="element.isActive"
-                                                               class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
-                                                        />
-                                                 </SidebarMenuButton>
-                                          </NuxtLink>
-                                   </Collapsible>
-                            </SidebarMenu>
+              <SidebarContent>
+                     <SidebarGroup v-for="(nav, indexGroup) in navMenu" :key="indexGroup">
+                            <SidebarGroupLabel v-if="nav.heading">
+                                   {{ nav.heading }}
+                            </SidebarGroupLabel>
+                            <component
+                                   :is="resolveNavItemComponent(item)"
+                                   v-for="(item, index) in nav.items"
+                                   :key="index"
+                                   :item="item"
+                            />
                      </SidebarGroup>
               </SidebarContent>
               <SidebarFooter>
-                     <SidebarMenu>
-                            <SidebarMenuItem>
-                                   <DropdownMenu>
-                                          <DropdownMenuTrigger class="w-full">
-                                                 <SidebarMenuButton
-                                                        size="lg"
-                                                        as="div"
-                                                        class="hover:bg-muted hover:text-accent-foreground"
-                                                 >
-                                                        <Avatar
-                                                               class="size-9 flex items-center justify-center"
-                                                        >
-                                                               <AvatarFallback class="text-sm">
-                                                                      M
-                                                               </AvatarFallback>
-                                                        </Avatar>
-                                                        <div
-                                                               class="grid flex-1 text-left text-sm leading-tight"
-                                                        >
-                                                               <span class="truncate font-semibold">
-                                                                      Mark
-                                                               </span>
-                                                               <span class="truncate text-xs">
-                                                                      demo@gmail.com
-                                                               </span>
-                                                        </div>
-                                                        <LucideChevronsUpDown
-                                                               class="ml-auto size-4"
-                                                        />
-                                                 </SidebarMenuButton>
-                                          </DropdownMenuTrigger>
-                                          <DropdownMenuContent class="min-w-60" align="end">
-                                                 <DropdownMenuLabel class="flex items-center gap-2">
-                                                        <Avatar
-                                                               class="size-9 flex items-center justify-center"
-                                                        >
-                                                               <AvatarFallback class="text-sm">
-                                                                      M
-                                                               </AvatarFallback>
-                                                        </Avatar>
-                                                        <div
-                                                               class="grid flex-1 text-left text-sm leading-tight"
-                                                        >
-                                                               <span class="truncate font-semibold">
-                                                                      Mark
-                                                               </span>
-                                                               <span
-                                                                      class="truncate font-normal text-xs"
-                                                               >
-                                                                      demo@gmail.com
-                                                               </span>
-                                                        </div>
-                                                 </DropdownMenuLabel>
-                                                 <DropdownMenuSeparator />
-                                                 <DropdownMenuItem>
-                                                        Profile
-                                                        <span
-                                                               class="ml-auto text-xs tracking-widest opacity-60"
-                                                               >⇧⌘P</span
-                                                        >
-                                                 </DropdownMenuItem>
-                                                 <DropdownMenuItem>
-                                                        Billing
-                                                        <span
-                                                               class="ml-auto text-xs tracking-widest opacity-60"
-                                                               >⌘B</span
-                                                        >
-                                                 </DropdownMenuItem>
-                                                 <DropdownMenuItem>
-                                                        Settings
-                                                        <span
-                                                               class="ml-auto text-xs tracking-widest opacity-60"
-                                                               >⌘S</span
-                                                        >
-                                                 </DropdownMenuItem>
-                                                 <DropdownMenuItem>New Team</DropdownMenuItem>
-                                                 <DropdownMenuSeparator />
-                                                 <DropdownMenuItem>
-                                                        Log out
-                                                        <span
-                                                               class="ml-auto text-xs tracking-widest opacity-60"
-                                                               >⇧⌘Q</span
-                                                        >
-                                                 </DropdownMenuItem>
-                                          </DropdownMenuContent>
-                                   </DropdownMenu>
-                            </SidebarMenuItem>
-                     </SidebarMenu>
+                     <LayoutSidebarNavFooter :user="user" />
               </SidebarFooter>
               <SidebarRail />
        </Sidebar>
